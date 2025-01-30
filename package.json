@@ -1,5 +1,5 @@
 {
-    "name": "@elizaos/plugin-letzai",
+    "name": "@elizaos-plugins/plugin-letzai",
     "version": "0.1.8+build.1",
     "author": "LetzAI",
     "description": "Enables Image Generation through LetzAI API",
