@@ -5,7 +5,7 @@ declare const letzAiImageGeneration: {
     similes: string[];
     description: string;
     suppressInitialMessage: boolean;
-    validate: (_runtime: any, _message: any, _state: any) => Promise<boolean>;
+    validate: (_runtime: IAgentRuntime, _message: Memory, _state: State) => Promise<boolean>;
     handler: (runtime: IAgentRuntime, message: Memory, _state: State, options: {
         width?: number;
         height?: number;

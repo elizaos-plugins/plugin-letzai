@@ -32,12 +32,12 @@ async function pollLetzAiImageStatus(id, letzAiApiKey, callback, maxPolls = 40, 
         }
         if (!finalUrl) {
           callback({
-            text: `Image is ready, but no final URL found.`
+            text: "Image is ready, but no final URL found."
           });
           return;
         }
         callback({
-          text: `Your image is ready!`,
+          text: "Your image is ready!",
           attachments: [
             {
               id,
@@ -53,7 +53,7 @@ async function pollLetzAiImageStatus(id, letzAiApiKey, callback, maxPolls = 40, 
       }
     } catch (err) {
       callback({
-        text: `Error while polling LetzAI: ${err.message}`
+        text: `Error while polling LetzAI: ${err instanceof Error ? err.message : "Unknown error"}`
       });
       return;
     }
@@ -88,8 +88,8 @@ var letzAiImageGeneration = {
       const hasWatermark = options.hasWatermark ?? true;
       const systemVersion = options.systemVersion ?? 3;
       const mode = options.mode ?? "default";
-      let imagePrompt = `${userPrompt}`.trim();
-      imagePrompt = letzAiModels + ", " + imagePrompt;
+      let imagePrompt = userPrompt.trim();
+      imagePrompt = `${letzAiModels}, ${imagePrompt}`;
       const prompt = imagePrompt;
       elizaLogger.log("Image prompt received:", imagePrompt);
       const createResp = await fetch("https://api.letz.ai/images", {
@@ -131,7 +131,7 @@ var letzAiImageGeneration = {
       );
     } catch (error) {
       callback({
-        text: `Error while requesting LetzAI: ${error.message}`
+        text: `Error while requesting LetzAI: ${error instanceof Error ? error.message : "Unknown error"}`
       });
     }
   },
