@@ -26,7 +26,7 @@ async function pollLetzAiImageStatus(id, letzAiApiKey, callback, maxPolls = 40, 
       const { status, imageVersions } = statusData;
       if (status === "ready") {
         isReady = true;
-        let finalUrl = imageVersions?.original;
+        let finalUrl = imageVersions == null ? void 0 : imageVersions.original;
         if (Array.isArray(finalUrl) && finalUrl.length > 0) {
           finalUrl = finalUrl[0];
         }
@@ -73,12 +73,13 @@ var letzAiImageGeneration = {
     return true;
   },
   handler: async (runtime, message, _state, options, callback) => {
+    var _a;
     try {
       elizaLogger.log("Composing state for message:", message.content.text);
       callback({
         text: message.content.text
       });
-      const userPrompt = message?.content?.text || "No prompt provided.";
+      const userPrompt = ((_a = message == null ? void 0 : message.content) == null ? void 0 : _a.text) || "No prompt provided.";
       const letzAiApiKey = runtime.getSetting("LETZAI_API_KEY") || "fake_api_key";
       const letzAiModels = runtime.getSetting("LETZAI_MODELS") || "";
       const width = options.width ?? 720;
@@ -112,7 +113,7 @@ var letzAiImageGeneration = {
       const createData = await createResp.json();
       if (!createResp.ok) {
         callback({
-          text: `LetzAI creation failed: ${createData?.message || "Unknown error"}`
+          text: `LetzAI creation failed: ${(createData == null ? void 0 : createData.message) || "Unknown error"}`
         });
         return;
       }

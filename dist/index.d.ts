@@ -1,4 +1,4 @@
-import { IAgentRuntime, Memory, State, HandlerCallback, Plugin } from '@elizaos/core';
+import { Plugin, IAgentRuntime, Memory, State, HandlerCallback } from '@elizaos/core';
 
 declare const letzAiImageGeneration: {
     name: string;
